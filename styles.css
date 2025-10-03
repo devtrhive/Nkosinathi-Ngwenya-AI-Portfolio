@@ -1083,6 +1083,10 @@ body, html {
     z-index: 999;      /* above main content */
   }
 
+  #sidebar.active {
+    left: 0;           /* slide in */
+  }
+
   /* Hamburger Button */
   #sidebar-toggle {
     position: fixed;
