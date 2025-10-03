@@ -1243,11 +1243,6 @@ body, html {
     overflow-y: auto;
   }
 
-  /* Sidebar active: slide in */
-  #sidebar.active {
-    left: 0;
-  }
-
   /* Overlay behind sidebar */
   #sidebar-overlay {
     display: none;
