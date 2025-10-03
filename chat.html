@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat with Nkosii</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at center, #000010, #020d1f, #000);
+      overflow: hidden;
+      color: white;
+    }
+
+    /* Floating glowing dots */
+    .bg-particles {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: transparent;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #00ffc8;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 0.7; }
+      to { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    /* Chat box */
+    .chat-container {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 255, 200, 0.3);
+      overflow: hidden;
+      border: 1px solid rgba(0, 255, 200, 0.2);
+    }
+
+    .chat-header {
+      background: rgba(0, 255, 200, 0.2);
+      color: #00ffc8;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .user-msg, .bot-msg {
+      max-width: 70%;
+      padding: 10px 15px;
+      border-radius: 15px;
+      font-size: 16px;
+      margin: 5px 0;
+    }
+
+    .user-msg {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #007bff, #00d4ff);
+      box-shadow: 0 0 18px rgba(0, 180, 255, 0.6);
+    }
+
+    .bot-msg {
+      align-self: flex-start;
+      background: linear-gradient(135deg, #e31919, rgb(254, 24, 24));
+      box-shadow: 0 0 18px rgba(0, 0, 255, 0.6);
+    }
+
+    .chat-input-bar {
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-top: 1px solid rgba(0, 255, 200, 0.2);
+    }
+
+    #chatInput {
+      flex: 1;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: white;
+    }
+
+    #sendChatBtn {
+      background: #84ff00;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: black;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    #sendChatBtn:hover {
+      background: #00fe48;
+      box-shadow: 0 0 12px #00ff85;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle background -->
+  <div class="bg-particles" id="bgParticles"></div>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      💬 Chat with Nkosii
+      <button onclick="window.location.href='index.html'" style="background:none;border:none;color:white;font-size:14px;cursor:pointer;">⬅ Back</button>
+    </div>
+
+    <div id="chatMessages" class="chat-messages"></div>
+
+    <div class="chat-input-bar">
+      <input type="text" id="chatInput" placeholder="Type your message...">
+      <button id="sendChatBtn">➤</button>
+    </div>
+  </div>
+
+  <script>
+    // Particle background generator
+    const bg = document.getElementById("bgParticles");
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("div");
+      p.className = "particle";
+      p.style.left = Math.random() * 100 + "vw";
+      p.style.animationDuration = 5 + Math.random() * 10 + "s";
+      p.style.animationDelay = Math.random() * 5 + "s";
+      bg.appendChild(p);
+    }
+
+    const API_URL = "https://www.chatbase.co/api/v1/chat";
+    const AGENT_ID = "phcz4KfrEM8srnOOYHBgG";
+    const API_KEY = "1806a362-f55f-4d72-80c5-39ea00b677a9";
+
+    const chatMessages = document.getElementById("chatMessages");
+    const chatInput = document.getElementById("chatInput");
+    const sendChatBtn = document.getElementById("sendChatBtn");
+
+    function appendMessage(cls, text) {
+      const el = document.createElement("div");
+      el.className = cls;
+      el.textContent = text;
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function sendMessage(userMessage) {
+      if (!userMessage) return;
+      appendMessage("user-msg", userMessage);
+      chatInput.value = "";
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + API_KEY
+          },
+          body: JSON.stringify({
+            chatbotId: AGENT_ID,
+            messages: [{ role: "user", content: userMessage }]
+          })
+        });
+
+        const data = await res.json();
+        let reply = data.output || data.output_text || data.text || "⚠️ No reply from Chatbase.";
+        appendMessage("bot-msg", reply);
+      } catch (err) {
+        appendMessage("bot-msg", "⚠️ Connection error.");
+      }
+    }
+
+    sendChatBtn.addEventListener("click", () => sendMessage(chatInput.value.trim()));
+    chatInput.addEventListener("keypress", e => {
+      if (e.key === "Enter") sendMessage(chatInput.value.trim());
+    });
+  </script>
+</body>
+</html>
