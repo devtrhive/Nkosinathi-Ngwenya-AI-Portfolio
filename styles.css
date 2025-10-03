@@ -1071,7 +1071,17 @@ body, html {
   /* -----------------------
      Sidebar Hidden + Toggle
   ----------------------- */
-
+#sidebar {
+    position: fixed;
+    left: -300px;      /* hide off-screen */
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background: #111;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 999;      /* above main content */
+  }
 
   /* Hamburger Button */
   #sidebar-toggle {
@@ -1227,18 +1237,6 @@ body, html {
     transition: left 0.3s ease;
     z-index: 1001;         /* above overlay */
     overflow-y: auto;
-  }
-
-  /* Overlay behind sidebar */
-  #sidebar-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 1000;         /* below sidebar but above content */
   }
 
 
