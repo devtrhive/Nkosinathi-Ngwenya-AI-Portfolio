@@ -116,3 +116,73 @@ userInput.addEventListener("keypress", e => {
     window.location.href = "chat.html";
   }
 });
+const sidebar = document.getElementById('sidebar');
+const toggle = document.getElementById('sidebar-toggle');
+const overlay = document.getElementById('sidebar-overlay');
+
+// Toggle sidebar and overlay
+toggle.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+});
+
+// Click overlay to close sidebar
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+});
+const journeyWarning = document.getElementById('journey-mobile-warning');
+const closeBtn = document.getElementById('close-warning');
+
+// Show warning automatically when user opens Journey gallery on mobile
+function showJourneyWarning() {
+  if (window.innerWidth <= 768) {
+    journeyWarning.style.display = 'block';
+  }
+}
+
+// Close button
+closeBtn.addEventListener('click', () => {
+  journeyWarning.style.display = 'none';
+});
+
+// Optional: hide if user rotates to landscape
+window.addEventListener('resize', () => {
+  if (window.innerWidth > window.innerHeight && window.innerWidth <= 768) {
+    journeyWarning.style.display = 'none'; // in landscape mode
+  }
+});
+// Only run JS if mobile screen
+if (window.innerWidth <= 768) {
+  const journeyWarning = document.getElementById('journey-mobile-warning');
+  const closeBtn = document.getElementById('close-warning');
+
+  // Warning is already visible via CSS on mobile
+  closeBtn.addEventListener('click', () => {
+    journeyWarning.style.display = 'none';
+  });
+
+  // Optional: hide warning if device rotated to landscape
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > window.innerHeight && window.innerWidth <= 768) {
+      journeyWarning.style.display = 'none';
+    }
+  });
+}
+window.addEventListener("resize", () => {
+  const gallery = document.querySelector(".journey-gallery");
+  
+  if (window.innerWidth > window.innerHeight && window.innerWidth <= 768) {
+    // Landscape mobile
+    gallery.style.gridTemplateColumns = "repeat(2, 1fr)";
+    document.getElementById("journey-mobile-warning").style.display = "none";
+  } else if (window.innerWidth <= 768) {
+    // Portrait mobile
+    gallery.style.gridTemplateColumns = "1fr";
+    document.getElementById("journey-mobile-warning").style.display = "block";
+  } else {
+    // Desktop
+    gallery.style.gridTemplateColumns = "repeat(3, 1fr)";
+    document.getElementById("journey-mobile-warning").style.display = "none";
+  }
+});
