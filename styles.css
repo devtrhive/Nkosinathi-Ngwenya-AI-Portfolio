@@ -40,7 +40,14 @@ body, html {
   padding: 20px;
   overflow-y: auto; /* allows scroll inside if too long */
 }
-
+/* Mobile styles */
+@media (max-width: 768px) {
+  #sidebar {
+    width: 100%;           /* full width on mobile */
+    float: none;
+    text-align: center;    /* center sidebar content */
+    padding: 10px;
+  }}
 /* Main content pushes to the right */
 #main-content {
   margin-left: 260px; /* same as sidebar width */
@@ -990,4 +997,387 @@ body, html {
   background: #00ffcc;
   border: none;
   cursor: pointer;
+}
+/* For phones (screens smaller than 768px) */
+@media (max-width: 768px) {
+  .content-section {
+    width: 95%;         /* almost full screen */
+    padding: 10px;      /* smaller padding */
+    text-align: center; /* center text on mobile */
+    border: 1px solid #333; /* thinner border */
+  }
+
+  .social-links {
+    flex-direction: column; /* stack links vertically */
+    align-items: center;
+  }
+}
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  #main-content {
+    margin-left: 0;   /* remove left margin */
+    padding: 10px;    /* smaller padding */
+  }
+
+  .content-section {
+    width: 95%;        /* fit almost full screen */
+    margin: 10px auto;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    border: 1px solid #333; /* thinner border for mobile */
+  }
+
+  .skills-grid, .badges-grid, .tech-tags, .achievement-list {
+    display: flex;
+    flex-direction: column; /* stack items vertically */
+    align-items: center;
+    gap: 8px;
+  }
+
+  .project-card {
+    width: 95%;
+    margin: 10px auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .timeline-content {
+    padding: 10px;
+  }
+
+  .chat-options button {
+    width: 90%;
+    margin: 5px 0;
+  }
+
+  .chat-input-bar input {
+    width: 70%;
+    margin-bottom: 5px;
+  }
+
+  .chat-input-bar button {
+    width: 25%;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+/* ========================
+   MOBILE STYLES ONLY
+======================= */
+@media (max-width: 768px) {
+
+  /* -----------------------
+     Sidebar Hidden + Toggle
+  ----------------------- */
+  #sidebar {
+    position: fixed;
+    left: -300px;      /* hide off-screen */
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background: #111;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 999;      /* above main content */
+  }
+
+  #sidebar.active {
+    left: 0;           /* slide in */
+  }
+
+  /* Hamburger Button */
+  #sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 35px;
+    height: 35px;
+    background: #29b5a3;
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  /* Main content takes full width */
+  #main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  /* Adjust profile image size */
+  .profile img {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Categories & Social Links */
+  .categories ul li {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .social-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Education / Foundation Cards */
+  .edu-card, .foundation {
+    width: 95%;
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  /* Skills Section */
+  .skills-grid, .badges-grid, .tech-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .skill-card {
+    width: 95%;
+    margin: 10px auto;
+  }
+
+  /* Projects Section */
+  .project-card {
+    width: 95%;
+    margin: 10px auto;
+    padding: 15px;
+  }
+
+  /* Experience Section */
+  .experience-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .experience-card {
+    width: 95%;
+    margin: 10px auto;
+  }
+
+  /* Timeline Section */
+  .timeline-section {
+    padding: 20px;
+  }
+
+  .timeline-line {
+    left: 20px;
+  }
+
+  .timeline-item {
+    margin-left: 60px;
+    margin-bottom: 30px;
+  }
+
+  .timeline-heading,
+  .timeline-desc {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .timeline-img {
+    width: 100%;
+    height: auto;
+    margin: 0 auto 10px;
+  }
+
+  /* Chat Widget */
+  #chat-widget {
+    width: 90%;
+    height: 400px;
+    bottom: 10px;
+    right: 5%;
+  }
+
+  #chat-input input {
+    width: 70%;
+  }
+
+  #chat-input button {
+    width: 25%;
+  }
+
+  .chat-options {
+    grid-template-columns: 1fr;
+  }
+
+  /* Section Boxes */
+  .content-section,
+  .skill-card,
+  .edu-card,
+  .project-card,
+  .experience-card {
+    width: 95%;
+    margin: 10px auto;
+  }
+}
+/* ========================
+   MOBILE SIDEBAR SLIDE-IN
+======================= */
+@media (max-width: 768px) {
+
+  /* Sidebar hidden off-screen */
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;          /* hidden by default */
+    width: 260px;
+    height: 100vh;
+    background: #111;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1001;         /* above overlay */
+    overflow-y: auto;
+  }
+
+  /* Sidebar active: slide in */
+  #sidebar.active {
+    left: 0;
+  }
+
+  /* Overlay behind sidebar */
+  #sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;         /* below sidebar but above content */
+  }
+
+  #sidebar-overlay.active {
+    display: block;
+  }
+
+  /* Hamburger button */
+  #sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 35px;
+    height: 35px;
+    background: #29b5a3;
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 1002;          /* above everything */
+  }
+
+  /* Main content full width */
+  #main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  /* Adjust other sections for mobile */
+  .profile img { width: 60px; height: 60px; }
+  .categories ul li, .social-links a { font-size: 0.9rem; }
+  .skills-grid, .badges-grid, .tech-tags { flex-direction: column; align-items: center; gap: 10px; }
+  .skill-card, .project-card, .edu-card, .foundation, .experience-card {
+    width: 95%;
+    margin: 10px auto;
+    padding: 15px;
+  }
+
+  /* Timeline adjustments */
+  .timeline-section { padding: 20px; }
+  .timeline-line { left: 20px; }
+  .timeline-item { margin-left: 60px; margin-bottom: 30px; }
+  .timeline-heading, .timeline-desc { position: static; width: 100%; margin-top: 10px; }
+  .timeline-img { width: 100%; height: auto; margin: 0 auto 10px; }
+
+  /* Chat Widget */
+  #chat-widget { width: 90%; height: 400px; bottom: 10px; right: 5%; }
+  #chat-input input { width: 70%; }
+  #chat-input button { width: 25%; }
+  .chat-options { grid-template-columns: 1fr; }
+}
+/* Hide warning by default on all screens */
+.mobile-warning {
+  display: none;
+}
+
+/* Show only on mobile (max-width 768px) */
+@media (max-width: 768px) {
+  .mobile-warning {
+    display: block;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(41, 181, 232, 0.95); /* semi-transparent cyan */
+    color: #111;
+    padding: 20px 25px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 9999;
+    box-shadow: 0 0 20px rgba(41, 181, 232, 0.7);
+    font-weight: bold;
+    font-size: 1rem;
+    max-width: 300px;
+  }
+
+  .mobile-warning button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    background: #111;
+    color: #29b5a3;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .mobile-warning button:hover {
+    background: #29b5a3;
+    color: #111;
+  }
+}
+.journey-gallery {
+  display: grid;
+  gap: 15px;
+  padding: 10px;
+  /* By default 1 column for narrow mobile portrait */
+  grid-template-columns: 1fr;
+}
+
+.journey-item {
+  background: #111;
+  color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* Landscape mobile: 2 columns */
+@media (max-width: 768px) and (orientation: landscape) {
+  .journey-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet / Desktop */
+@media (min-width: 769px) {
+  .journey-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
