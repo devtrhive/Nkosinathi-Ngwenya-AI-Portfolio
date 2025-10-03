@@ -40,6 +40,9 @@ body, html {
   padding: 20px;
   overflow-y: auto; /* allows scroll inside if too long */
 }
+#sidebar.active {
+    left: 0;           /* slide in */
+  }
 /* Mobile styles */
 @media (max-width: 768px) {
   #sidebar {
